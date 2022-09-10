@@ -1,0 +1,104 @@
+<div class="row">
+  
+  <form [formGroup]="searchForm" (submit)="searchSubmit()">
+    <div class="form-group">
+      <label for="formGroupExampleInput">Pesquisa</label>
+      <input type="text" formControlName="query" class="form-control" />
+      <button class="btn btn-default" [disabled]="!searchForm.valid">
+        Pesquisar
+      </button>
+    </div>
+  </form>
+  <div class="col-sm-6" *ngIf="selectedComputer">
+    <div class="row">
+      <h2 class="mr-auto">Computador selecionado: {{ selectedComputer.id }}</h2>
+    </div>
+    <br />
+    <button class="btn btn-outline-danger" (click)="back()">Voltar</button>
+  </div>
+  <hr>
+  <form [formGroup]="computerForm" (submit)="computerSubmit()">
+    <div class="form-group">
+      <label for="formGroupExampleInput">Modelo</label>
+      <input type="text" formControlName="modelo" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput">Marca</label>
+      <input type="text" formControlName="marca" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput">Memória RAM(GB)</label>
+      <input type="number" formControlName="memoriaRam" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput">Armazenamento(HD/SSD)[GB]</label>
+      <input type="number" formControlName="armazenamento" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput">Velocidade do Processador(GHz)</label>
+      <input
+        type="number"
+        formControlName="velocidadeProcessador"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput">Placa Mãe</label>
+      <input type="text" formControlName="placaMae" class="form-control" />
+    </div>
+    <div class="form-group">
+      <hr />
+      <button class="btn btn-success" [disabled]="!computerForm.valid">
+        Enviar
+      </button>
+    </div>
+  </form>
+
+  <div
+    [ngClass]="{ 'col-sm-6': selectedComputer, 'col-sm-12': !selectedComputer }"
+  >
+    <h1>{{ title }}</h1>
+
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Memória RAM</th>
+          <th scope="col">Armazenamento(HD/SSD</th>
+          <th scope="col">Velocidade do Processador</th>
+          <th scope="col">Placa Mãe</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pc of computers" style="cursor: pointer">
+          <td scope="row">{{ pc.id }}</td>
+          <td>{{ pc.modelo }}</td>
+          <td>{{ pc.marca }}</td>
+          <td>{{ pc.memoriaRam }}</td>
+          <td>{{ pc.armazenamento }}</td>
+          <td>{{ pc.velocidadeProcessador }}</td>
+          <td>{{ pc.placaMae }}</td>
+          <td>
+            <div class="btn-group">
+              <button
+                class="btn btn-sm btn-outline-primary"
+                (click)="selectComputer(pc)"
+              >
+                Editar
+              </button>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="deleteComputer(pc)"
+              >
+                Excluir
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
